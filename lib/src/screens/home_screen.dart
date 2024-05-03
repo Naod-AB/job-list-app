@@ -49,6 +49,7 @@ class JobsListView extends ConsumerWidget {
         ref.watch(firestoreRepositoryProvider).jobsQuery(user!.uid);
     return FirestoreListView<Job>(
       query: firestoreRepository,
+      pageSize: 10,
       errorBuilder: (context, error, stackTrace) =>
           Center(child: Text(error.toString())),
       emptyBuilder: (context) => const Center(child: Text('No Jobs Added')),
@@ -63,6 +64,10 @@ class JobsListView extends ConsumerWidget {
           child: ListTile(
             title: Text(job.title),
             subtitle: Text(job.company),
+            trailing: job.createdAt != null
+                ? Text(job.createdAt.toString(),
+                    style: Theme.of(context).textTheme.bodySmall)
+                : null,
             onTap: () {
               final faker = Faker();
               final title = faker.job.title();
