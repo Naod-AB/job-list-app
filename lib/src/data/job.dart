@@ -13,6 +13,7 @@ class Job extends Equatable {
     return Job(
       title: map['title'] as String,
       company: map['company'] as String,
+      // https://stackoverflow.com/a/71731076/436422
       createdAt: createdAt != null ? (createdAt as Timestamp).toDate() : null,
     );
   }
