@@ -22,7 +22,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/sign-in',
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+      final isLoggedIn = firebaseAuth.currentUser != null;
       if (isLoggedIn) {
         if (state.uri.path == '/sign-in') {
           return '/home';
