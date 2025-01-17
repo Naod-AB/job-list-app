@@ -1,1 +1,61 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"job-list-app-b147d","appId":"1:1073406637044:android:1344afeac0d02cff8abfa1","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"job-list-app-b147d","configurations":{"android":"1:1073406637044:android:1344afeac0d02cff8abfa1","ios":"1:1073406637044:ios:e98b9d0ec5c625368abfa1","macos":"1:1073406637044:ios:b5514ae80a3e3e478abfa1","web":"1:1073406637044:web:bba40eb209e47a9f8abfa1","windows":"1:1073406637044:web:fb3afe80336f4fe78abfa1"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "job-list-app-b147d",
+          "appId": "1:1073406637044:android:1344afeac0d02cff8abfa1",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "job-list-app-b147d",
+          "configurations": {
+            "android": "1:1073406637044:android:1344afeac0d02cff8abfa1",
+            "ios": "1:1073406637044:ios:e98b9d0ec5c625368abfa1",
+            "macos": "1:1073406637044:ios:b5514ae80a3e3e478abfa1",
+            "web": "1:1073406637044:web:bba40eb209e47a9f8abfa1",
+            "windows": "1:1073406637044:web:fb3afe80336f4fe78abfa1"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ],
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}
