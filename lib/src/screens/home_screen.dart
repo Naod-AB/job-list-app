@@ -14,7 +14,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My jobs'), actions: [
+      appBar: AppBar(title: const Text('My Jobs'), actions: [
         IconButton(
           icon: const Icon(Icons.person),
           onPressed: () => context.goNamed(AppRoute.profile.name),
@@ -44,22 +44,24 @@ class JobsListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(firebaseAuthProvider).currentUser;
-    final firestoreRepository =
-        ref.watch(firestoreRepositoryProvider).jobsQuery(user!.uid);
+    final firestoreRepository = ref.watch(firestoreRepositoryProvider);
+    final user = ref.watch(firebaseAuthProvider).currentUser;
     return FirestoreListView<Job>(
-      query: firestoreRepository,
-      pageSize: 10,
-      errorBuilder: (context, error, stackTrace) =>
-          Center(child: Text(error.toString())),
-      emptyBuilder: (context) => const Center(child: Text('No Jobs Added')),
+      query: firestoreRepository.jobsQuery(user!.uid),
+      pageSize: 20,
+      errorBuilder: (context, error, stackTrace) => Center(
+        child: Text(error.toString()),
+      ),
+      emptyBuilder: (context) => const Center(child: Text('No data')),
       itemBuilder: (BuildContext context, QueryDocumentSnapshot<Job> doc) {
         final job = doc.data();
         return Dismissible(
           key: Key(doc.id),
           background: const ColoredBox(color: Colors.red),
+          direction: DismissDirection.endToStart,
           onDismissed: (direction) {
-            ref.read(firestoreRepositoryProvider).deleteJob(user.uid, doc.id);
+            final user = ref.read(firebaseAuthProvider).currentUser;
+            ref.read(firestoreRepositoryProvider).deleteJob(user!.uid, doc.id);
           },
           child: ListTile(
             title: Text(job.title),
@@ -69,11 +71,12 @@ class JobsListView extends ConsumerWidget {
                     style: Theme.of(context).textTheme.bodySmall)
                 : null,
             onTap: () {
+              final user = ref.read(firebaseAuthProvider).currentUser;
               final faker = Faker();
               final title = faker.job.title();
               final company = faker.company.name();
               ref.read(firestoreRepositoryProvider).updateJob(
-                    user.uid,
+                    user!.uid,
                     doc.id,
                     title,
                     company,

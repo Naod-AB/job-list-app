@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 
 enum AppRoute {
   signIn,
-  profile,
   home,
+  profile,
 }
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {

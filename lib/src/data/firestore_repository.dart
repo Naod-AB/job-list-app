@@ -19,6 +19,7 @@ class FirestoreRepository {
         'title': title,
         'company': company,
       });
+
   Future<void> deleteJob(String uid, String jobId) =>
       _firestore.doc('users/$uid/jobs/$jobId').delete();
 
